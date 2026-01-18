@@ -12,7 +12,7 @@ class CustomLoadShape(LoadTestShape):
         match cfg.loadshape_type:
             case "baseline":
                 self.stages = [
-                    {"duration": 1, "users": 1, "spawn_rate": 1}
+                    {"duration": 3, "users": 1, "spawn_rate": 1}
                 ]
             case "stages":
                 self.stages = [
