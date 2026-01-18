@@ -10,7 +10,7 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
         self.user_data_csv_file = './test_data/login,password,address1,address2,pass1,arrive,depart.csv'
         self.user_data = open_csv_file(self.user_data_csv_file)
         self.random_user_data = open_random_csv_file(self.user_data_csv_file)
-        logger.info(f"__________SPISOK POLZOVATELEY: {self.random_user_data}")
+        # logger.info(f"__________SPISOK POLZOVATELEY: {self.random_user_data}")
 
     @task()
     def uc_00_getHomePage(self):
