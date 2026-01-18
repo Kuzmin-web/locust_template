@@ -89,9 +89,30 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
             allow_redirects=False,
             headers={'content-type': 'application/x-www-form-urlencoded'},
             data=self.body_r01_01_login_pl,
+            # debug_stream=sys.stderr,
             catch_response=True
         ) as r01_01_login_pl:
             check_http_response(r01_01_login_pl, "Web Tours")
+
+        with self.client.get(
+            '/cgi-bin/nav.pl?in=home',
+            name="r01_02_nav_pl",
+            allow_redirects=False,
+            # debug_stream=sys.stderr,
+            catch_response=True
+        ) as r01_02_nav_pl:
+            check_http_response(r01_02_nav_pl, "Web Tours Navigation Bar")
+
+    
+        with self.client.get(
+            '/cgi-bin/login.pl?intro=true',
+            name="r01_03_login_pl",
+            allow_redirects=False,
+            debug_stream=sys.stderr,
+            catch_response=True
+        ) as r01_03_login_pl:
+            check_http_response(r01_03_login_pl, f"Welcome, <b>{self.login}</b>")
+
 
 
         # logger.info(f"Статус ответа: {r00_01_response.status_code}, Тело ответа {r00_01_response.text}")
