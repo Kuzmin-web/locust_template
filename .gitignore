@@ -1,0 +1,11 @@
+.DS_Store
+.idea
+
+__pycache__
+.ruff_cache
+
+*.log
+*.logs
+.venv
+.env*
+*.lock
