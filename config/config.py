@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 """
 class ScenarioConfig(BaseModel):
     included: bool
+    url: str
     weight: int
 
 """ 
