@@ -2,7 +2,7 @@ from locust import task, SequentialTaskSet, HttpUser, constant_pacing, events, F
 import sys, re, random
 from config.config import cfg, logger
 from utils.assertion import check_http_response
-from utils.non_test_methods import open_csv_file, open_random_csv_file
+from utils.non_test_methods import open_csv_file, open_random_csv_file, generateFlightDate
 
 class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами (содержит основной сценарий)
 
@@ -161,8 +161,10 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
         self.arrive = self.random_user_row["arrive"]
         self.seatType = self.random_flights_row["seatType"]
         self.seatPref = self.random_flights_row["seatPref"]
+        
+        self.departDate, self.returnDate = generateFlightDate()
 
-        self.body_r03_01_reservations_pl = f'advanceDiscount=0&depart={self.depart}&departDate=(01%2F25%2F2026&arrive)={self.arrive}&returnDate=(01%2F26%2F2026)&numPassengers=1&seatPref={self.seatPref}&seatType={self.seatType}&findFlights.x=49&findFlights.y=9&.cgifields=roundtrip&.cgifields=seatType&.cgifields=seatPref'
+        self.body_r03_01_reservations_pl = f'advanceDiscount=0&depart={self.depart}&departDate={self.departDate}&arrive={self.arrive}&returnDate={self.returnDate}&numPassengers=1&seatPref={self.seatPref}&seatType={self.seatType}&findFlights.x=49&findFlights.y=9&.cgifields=roundtrip&.cgifields=seatType&.cgifields=seatPref'
 
         with self.client.post(
             '/cgi-bin/reservations.pl',
