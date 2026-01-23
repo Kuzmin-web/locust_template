@@ -85,8 +85,8 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
 
         self.body_r01_01_login_pl = f'userSession={self.user_session}&username={self.login}&password={self.password}&login.x=53&login.y=6&JSFormSubmit=off'
         
-        print(f"______________BODY LOGIN: {self.body_r01_01_login_pl}")
-        logger.info(f"______________BODY LOGIN: {self.body_r01_01_login_pl}")
+        # print(f"______________BODY LOGIN: {self.body_r01_01_login_pl}")
+        # logger.info(f"______________BODY LOGIN: {self.body_r01_01_login_pl}")
 
         with self.client.post(
             '/cgi-bin/login.pl',
@@ -163,9 +163,12 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
         self.seatPref = self.random_flights_row["seatPref"]
         
         self.departDate, self.returnDate = generateFlightDate()
+        
+        logger.info(f"______________DEPART DATE: {self.departDate}, RETURN DATE: {self.returnDate}")
 
         self.body_r03_01_reservations_pl = f'advanceDiscount=0&depart={self.depart}&departDate={self.departDate}&arrive={self.arrive}&returnDate={self.returnDate}&numPassengers=1&seatPref={self.seatPref}&seatType={self.seatType}&findFlights.x=49&findFlights.y=9&.cgifields=roundtrip&.cgifields=seatType&.cgifields=seatPref'
-
+        logger.info(f"______________DATA_R03_01: {self.body_r03_01_reservations_pl}")  
+  
         with self.client.post(
             '/cgi-bin/reservations.pl',
             name="r03_01_reservations_pl",
