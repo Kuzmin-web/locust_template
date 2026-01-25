@@ -11,6 +11,7 @@ class ScenarioConfig(BaseModel):
     included: bool
     url: str
     weight: int
+    pacing: int
 
 """ 
     Здесь должны быть описаны классы конфигурации сценариев 

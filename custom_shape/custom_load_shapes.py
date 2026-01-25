@@ -21,6 +21,15 @@ class CustomLoadShape(LoadTestShape):
                     {"duration": 180, "users": 30, "spawn_rate": 1},
                     {"duration": 240, "users": 40, "spawn_rate": 1},
                 ]
+                
+            case "test_dz_15":
+                self.stages = [ 
+            {"duration": 100, "users": 3, "spawn_rate": 1},
+            {"duration": 200, "users": 4, "spawn_rate": 1},
+            {"duration": 300, "users": 5, "spawn_rate": 1},
+            {"duration": 400, "users": 5, "spawn_rate": 1}, 
+            {"duration": 500, "users": 5, "spawn_rate": 1}, 
+                ]
     
     def tick(self): 
         run_time = self.get_run_time()

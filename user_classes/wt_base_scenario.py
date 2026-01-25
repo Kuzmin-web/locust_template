@@ -15,6 +15,9 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
         self.random_flight_data = open_random_csv_file(self.flights_deatails_csv_file)
         # logger.info(f"__________SPISOK POLZOVATELEY: {self.random_user_data}")
 
+        self.uc_00_getHomePage()
+        self.uc_01_login()
+
     @task()
     def uc_00_getHomePage(self):
         with self.client.get(
@@ -29,7 +32,6 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
             catch_response=True
         ) as r00_01_response:
             check_http_response(r00_01_response, "Web Tours")
-
 
         with self.client.get(
             '/WebTours/header.html',
@@ -50,7 +52,6 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
             catch_response=True 
         ) as r00_03_welcome_pl_html:
             check_http_response(r00_03_welcome_pl_html, f'{check}')
-
 
         with self.client.get(
             '/cgi-bin/nav.pl?in=home',
@@ -74,7 +75,6 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
 
     @task()
     def uc_01_login(self):
-       
         self.users_row = next(self.user_data)
         self.random_user_row = random.choice(self.random_user_data)  # Выбираем случайного пользователя из CSV файла
         # print(f"DEBUG: KEYS: {self.random_user_row.keys()}") # Это покажет реальные имена колонок
@@ -82,7 +82,7 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
         self.password = self.random_user_row["password"]
         self.headers = {
             'content-type': 'application/x-www-form-urlencoded'
-            }
+        }
 
         self.body_r01_01_login_pl = f'userSession={self.user_session}&username={self.login}&password={self.password}&login.x=53&login.y=6&JSFormSubmit=off'
         
@@ -109,7 +109,6 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
         ) as r01_02_nav_pl:
             check_http_response(r01_02_nav_pl, "Web Tours Navigation Bar")
 
-    
         with self.client.get(
             '/cgi-bin/login.pl?intro=true',
             name="r01_03_login_pl",
@@ -118,7 +117,6 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
             catch_response=True
         ) as r01_03_login_pl:
             check_http_response(r01_03_login_pl, f"Welcome, <b>{self.login}</b>")
-
 
 
     @task()
@@ -243,5 +241,6 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
 class WebToursBaseUserClass(FastHttpUser): # юзер-класс, принимающий в себя основные параметры теста
     wait_time = constant_pacing(cfg.pacing)
     host = cfg.url
+    tasks = [PurchaseFlightTicket]
 
     tasks = [PurchaseFlightTicket]

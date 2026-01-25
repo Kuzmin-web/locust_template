@@ -18,3 +18,15 @@ def generateFlightDate():
     departDate = quote_plus((datetime.now() + timedelta(days=random.randint(2, 10))).strftime("%m/%d/%Y"))
     returnDate = quote_plus((datetime.now() + timedelta(days=random.randint(11, 20))).strftime("%m/%d/%Y"))
     return departDate, returnDate
+
+
+def processCancelRequestBody(flight_ids, flights_nums):
+    
+    random_index = random.randrange(len(flights_nums))
+
+    delete_num = f'{flights_nums[random_index]}=on'
+    flights_ids = 'flightID=' + '&flightID='.join(flight_ids)
+    flights_nums = '.cgifields=' + '&.cgifields='.join(flights_nums)  
+    static = 'removeFlights.x=47&removeFlights.y=12'
+
+    return f'{flights_ids}&{delete_num}&{flights_nums}{static}'
