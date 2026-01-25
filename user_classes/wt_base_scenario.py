@@ -15,11 +15,6 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
         self.random_flight_data = open_random_csv_file(self.flights_deatails_csv_file)
         # logger.info(f"__________SPISOK POLZOVATELEY: {self.random_user_data}")
 
-        self.uc_00_getHomePage()
-        self.uc_01_login()
-
-    @task()
-    def uc_00_getHomePage(self):
         with self.client.get(
             '/WebTours/',
             name="r00_01_response",
@@ -73,8 +68,6 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
         ) as r00_05_home_html:
             check_http_response(r00_05_home_html, "Welcome to the Web Tours site")
 
-    @task()
-    def uc_01_login(self):
         self.users_row = next(self.user_data)
         self.random_user_row = random.choice(self.random_user_data)  # Выбираем случайного пользователя из CSV файла
         # print(f"DEBUG: KEYS: {self.random_user_row.keys()}") # Это покажет реальные имена колонок
