@@ -15,16 +15,21 @@ class Cancel(SequentialTaskSet): # класс с задачами (содерж�
         self.random_flight_data = open_random_csv_file(self.flights_deatails_csv_file)
         # logger.info(f"__________SPISOK POLZOVATELEY: {self.random_user_data}")
 
+        # Прогрев сервера для снижения cold start задержки
+        try:
+            self.client.get('/WebTours/', allow_redirects=False, catch_response=True, name='warmup')
+        except:
+            pass
+
         with self.client.get(
             '/WebTours/',
             name="r00_01_response",
             allow_redirects=False,
+            catch_response=True,
             headers={
-                'sec-ch-ua': '"Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"',
+                'sec-ch-ua': '"Not A(Brand";v="99", "Google Chrome";v="121"',
                 'sec-ch-ua-mobile': '?0'
-            },
-            # debug_stream=sys.stderr,
-            catch_response=True
+            }
         ) as r00_01_response:
             check_http_response(r00_01_response, "Web Tours")
 

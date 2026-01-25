@@ -12,7 +12,7 @@ class CustomLoadShape(LoadTestShape):
         match cfg.loadshape_type:
             case "baseline":
                 self.stages = [
-                    {"duration": 60, "users": 1, "spawn_rate": 1}
+                    {"duration": 60, "users": 10, "spawn_rate": 1}
                 ]
             case "stages":
                 self.stages = [
@@ -22,13 +22,13 @@ class CustomLoadShape(LoadTestShape):
                     {"duration": 240, "users": 40, "spawn_rate": 1},
                 ]
                 
-            case "test_dz_15":
+            case "test":
                 self.stages = [ 
-            {"duration": 200, "users": 5, "spawn_rate": 1},
             {"duration": 400, "users": 10, "spawn_rate": 1},
-            {"duration": 600, "users": 15, "spawn_rate": 1},
-            {"duration": 800, "users": 20, "spawn_rate": 1}, 
-            {"duration": 1000, "users": 25, "spawn_rate": 1}, 
+            {"duration": 800, "users": 20, "spawn_rate": 1},
+            {"duration": 1200, "users": 30, "spawn_rate": 1},
+            {"duration": 1600, "users": 40, "spawn_rate": 1}, 
+            {"duration": 2000, "users": 50, "spawn_rate": 1}, 
                 ]
     
     def tick(self): 
