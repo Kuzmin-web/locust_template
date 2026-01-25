@@ -210,7 +210,7 @@ class PurchaseFlightTicket(SequentialTaskSet): # класс с задачами 
         self.adress2 = self.random_user_row["address2"]
         self.pass1 = self.random_user_row["pass1"]
 
-        self.body_uc_05_01_PaymentDetails = f'firstName={self.login}&lastName={self.password}&address1={self.adress1}&address2={self.adress2}&pass1=jojo+bean&creditCard={self.creditCard}&expDate={self.expDate}&oldCCOption=&numPassengers=1&seatType={self.seatType}&seatPref={self.seatPref}&outboundFlight={self.outboundFlight}&advanceDiscount=0&returnFlight=&JSFormSubmit=off&buyFlights.x=76&buyFlights.y=11&.cgifields=saveCC'
+        self.body_uc_05_01_PaymentDetails = f'firstName={self.login}&lastName={self.password}&address1={self.adress1}&address2={self.adress2}&pass1={self.pass1}&creditCard={self.creditCard}&expDate={self.expDate}&oldCCOption=&numPassengers=1&seatType={self.seatType}&seatPref={self.seatPref}&outboundFlight={self.outboundFlight}&advanceDiscount=0&returnFlight=&JSFormSubmit=off&buyFlights.x=76&buyFlights.y=11&.cgifields=saveCC'
 
         # logger.info(f"______________DATA_uc_05_01_PaymentDetails: {self.body_uc_05_01_PaymentDetails}")
          
